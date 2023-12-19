@@ -1,0 +1,21 @@
+set IMM.IMMInfo_Name ESX02
+set IMM.IMMInfo_Contact lenovo@patrickjahn.de
+set IMM.IMMInfo_Location Serverhausen
+set IMM.IMMInfo_RoomId Wohnzimmer
+set IMM.IMMInfo_RackId Boden
+set IMM.IMMInfo_Lowest_U 0
+set IMM.IMMInfo_FullPostalAddress Serverstrasse 1 RZ01
+set IMM.HostName1 esx02
+set IMM.HostIPAddress1 10.0.249.10
+set IMM.HostIPSubnet1 255.255.255.0
+set IMM.GatewayIPAddress1 10.0.249.1
+set IMM.DNS_Enable Enabled
+set IMM.DNSPreference IPv4
+set IMM.DNS_IP_Address1 10.0.249.53
+set IMM.DNS_IP_Address2 8.8.8.8
+set IMM.Search_Domain home.local
+set IMM.TimeZone UTC+2:00
+set IMM.DST Off
+set BootOrder.BootOrder "Hard Disk=CD/DVD Rom=Network"
+set BootModes.SystemBootMode "Legacy Mode"
+set SecureBootConfiguration.SecureBootSetting Disabled
