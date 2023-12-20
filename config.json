@@ -1,0 +1,14 @@
+{
+    "sensitive_settings":{
+    	"IMM.Password.1":"PASSW0RD",
+    },
+    "parallel_number": 50,
+    "parallel_order": 1,
+    "password_decrypt_mode": 0,
+    "bmc_credential": {
+        "default_alias": "USERID"
+    },
+    "target_bmc": [
+        "default_alias@10.0.249.10",
+    ],
+}

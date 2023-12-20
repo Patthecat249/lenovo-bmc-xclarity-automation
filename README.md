@@ -15,6 +15,47 @@ This Repository describes how to automate a Lenovo Bare-Metal-Configuration of L
 ./onecli config showdes imm --bmc USERID:PASSW0RD@10.0.249.10
 ```
 
+## Show only RAID-Configuration
+```bash
+onecli raid show --bmc USERID:PASSW0RD@10.0.249.10
+```
+
+## Clear/Delete RAID-Configuration
+```bash
+# Delete whole RAID-Configuration without asking
+./onecli misc raid clear --ctrl 1 --force --bmc USERID:PASSW0RD@10.0.249.10
+```
+
+## Creates RAID-Configuration
+```bash
+# Creates two volumes on DISK 0 and DISK 1 in RAID-0-Mode
+./onecli misc raid add --file raid-config.ini --force --bmc USERID:PASSW0RD@10.0.249.10
+
+# Content of raid-config.ini
+[ctrl1-vol0]
+     disks=0,1
+     raid_level=0
+     vol_name=volume-esx
+     write_policy=0
+     read_policy=0
+     io_policy=0
+     access_policy=0
+     cache_policy=0
+     volume_size=50GB
+     strip_size=64K
+[ctrl1-vol1]
+     disks=0,1
+     raid_level=0
+     vol_name=volume-esx-datastore
+     write_policy=0
+     read_policy=0
+     io_policy=0
+     access_policy=0
+     cache_policy=0
+     volume_size=1536GB
+     strip_size=64K
+```
+
 ## Execute Batch-File with Parameters
 ```bash
 # batch-file.txt must exist in local-folder
