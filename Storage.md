@@ -96,3 +96,61 @@ Succeed.
 ```bash
 # Creates two volumes on DISK 0 and DISK 1 in RAID-0-Mode
 ./onecli misc raid add --file raid-config.ini --force --bmc USERID:PASSW0RD@10.0.249.10
+```
+## Check, if Update are available
+```bash
+# Download updates for Server Model 7X06
+# List all ostype
+./onecli update acquire --mt 7X06 --insecure --ostype --report
+
+# Download single Package
+onecli update acquire -I lnvgy_fw_drvln_pdl246c-2.10_anyos_noarch
+onecli update acquire -I lnvgy_fw_drvwn_pdl346a-2.10_anyos_noarch
+
+# For Platform
+mkdir update-downloads && cd update-downloads && ../onecli update acquire --mt 7X06 --insecure --ostype platform
+
+# For VMware
+mkdir update-downloads && cd update-downloads && ../onecli update acquire --mt 7X06 --insecure --ostype vmware
+
+[root@TPPJAHN2 update-downloads]# ../onecli update acquire --mt 7X06 --insecure --ostype vmware --report
+Start to download from Lenovo......
+
+# Output for VMware
+Reporting acquisition status of updates for Machine-Type=7X06 OS="VMware"
+Done
+lnvgy_fw_drvwn_pdl304t-1.01_anyos_noarch - Remotely available
+lnvgy_fw_xcc_cdi306x-1.08_anyos_noarch - Remotely available
+lnvgy_fw_lxpm_pdl106w-1.01_anyos_noarch - Remotely available
+lnvgy_fw_drvln_pdl204o-1.01_anyos_noarch - Remotely available
+lnvgy_fw_uefi_ive112k-1.02_anyos_32-64 - Remotely available
+lnvgy_utl_uxsp_c5sp13p-1.00_vmware6.0_32-64 - Remotely available
+Succeed.
+
+# Compare Updates
+./onecli update compare --bmc USERID:PASSW0RD@10.0.249.10
+
+# Execute Update
+../onecli update flash --bmc USERID:PASSW0RD@10.0.249.10 --platform --comparexml /root/xclarity-onecli/update-downloads/logs/OneCli-20240124-175155-2929/Onecli-update-compare.xml
+
+# Test mit SFTP-Server
+../onecli update flash --fileserver sftp://sftp-user:Test1234@10.0.249.165:22/lenovo --bmc USERID:PASSW0RD@10.0.249.10 --platform --comparexml /root/xclarity-onecli/update-downloadty-onecli/update-downloads/logs/OneCli-20240124-175155-2929/Onecli-update-compare.xml
+
+../onecli update flash --sftp sftp-user:Test1234@10.0.249.165:22/lenovo --bmc USERID:PASSW0RD@10.0.249.10 --platform --comparexml /root/xclarity-onecli/update-downloadty-onecli/update-downloads/logs/OneCli-20240124-175155-2929/Onecli-update-compare.xml
+
+# Teste XCC Update
+#../onecli update flash --includeid lnvgy_fw_xcc_tei3a8l-4.20_anyos_noarch --nocompare --bmc USERID:PASSW0RD@10.0.249.10
+../onecli update flash --includeid lnvgy_fw_raid_mr3.5.930-51.22.0-5096-2_linux_x86-64 --platform --bmc USERID:PASSW0RD@10.0.249.10
+../onecli update flash --includeid lnvgy_fw_xcc_tei3d8o-6.00_anyos_noarch --nocompare --bmc USERID:PASSW0RD@10.0.249.10
+
+../onecli update flash --includeid lnvgy_fw_xcc_cdi3a8n-9.40_anyos_noarch --nocompare --bmc USERID:PASSW0RD@10.0.249.10
+../onecli update flash --includeid lnvgy_fw_xcc_cdi3b2n-9.86_anyos_noarch --platform --bmc USERID:PASSW0RD@10.0.249.10
+
+
+```
+
+# Bootable Media Creator
+```bash
+# Create bootable media with command
+<LXCE BoMC> --function=update --machine-type=7X06 -l C:\Users\pjahn.SVA\Downloads\lenovo-sr650-firmware\bootablemediacreator --description BootableMedia_20240125-010223 --noreboot --iso C:\Users\pjahn.SVA\Downloads\lenovo-sr650-firmware\bootablemediacreator\bootable.iso --copytoramdisk --update-selection C:\Lenovo_Support\update_selection_1706141291427_0.json
+```
